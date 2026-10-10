@@ -143,16 +143,26 @@ function renderFlavors(product){
       return `<div class="flavor-row"><img src="${escapeHtml(flavor.image)}" alt="" loading="lazy" decoding="async"><div class="flavor-row-title"><strong>${escapeHtml(name)}</strong><small>${escapeHtml(other.join('/')||(!available?'Sin stock':`${flavor.stock} disp.`))}${other.length?` · ${available?`${flavor.stock} disp.`:'Sin stock'}`:''}${inCart?` · ${inCart} en pedido`:''}</small></div><button type="button" class="flavor-add" data-action="add" data-product="${escapeHtml(product.id)}" data-index="${flavor.index}" ${available&&inCart<Number(flavor.stock)?'':'disabled'} aria-label="${available?'Agregar':'No disponible'}: ${escapeHtml(name)}" title="${available?'Agregar':'Sin stock'}">${available?'+':'—'}</button></div>`;
     }).join(''):'<div class="empty-flavors">No hay sabores que coincidan con tu búsqueda.</div>'}</div>`;
 }
-function refreshFlavorPanel(id){
-  const p=getProduct(id);const panel=document.getElementById(`flavors-${id}`);
-  if(!p||!panel||panel.hidden)return;
-  // Actualizamos solo la lista para no perder foco ni selección mientras se escribe.
-  const previous=panel.querySelector('.flavor-search');
-  if(!previous){panel.innerHTML=renderFlavors(p);return;}
-  const cursor=previous.selectionStart;
-  panel.innerHTML=renderFlavors(p);
-  const replacement=panel.querySelector('.flavor-search');
-  if(replacement&&document.activeElement===document.body){replacement.focus();replacement.setSelectionRange(cursor,cursor)}
+function refreshFlavorPanel(id) {
+  const product = getProduct(id);
+  const panel = document.getElementById(`flavors-${id}`);
+
+  if (!product || !panel || panel.hidden) return;
+
+  // Generamos la lista actualizada de sabores.
+  const temp = document.createElement('div');
+  temp.innerHTML = renderFlavors(product);
+
+  const currentList = panel.querySelector('.flavor-list');
+  const updatedList = temp.querySelector('.flavor-list');
+
+  // Actualizamos únicamente los sabores.
+  // No recreamos el buscador ni modificamos el foco.
+  if (currentList && updatedList) {
+    currentList.replaceWith(updatedList);
+  } else {
+    panel.innerHTML = temp.innerHTML;
+  }
 }
 function addFlavor(id,index){
   const product=getProduct(id);const flavor=product?.flavorOptions?.[index];
