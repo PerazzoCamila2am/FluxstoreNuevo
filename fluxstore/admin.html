@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Fluxstore</title>
+  <link rel="icon" href="assets/fluxstore-logo-circle.webp">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="admin-page">
+
+  <main class="admin-wrap">
+    <section class="admin-hero">
+      <img src="assets/fluxstore-logo-circle.webp" alt="Logo Fluxstore" class="admin-logo">
+      <p class="eyebrow">Panel interno</p>
+      <h1>Fluxstore Admin</h1>
+      <p>Accesos rápidos para revisar pedidos, responder consultas y organizar ventas.</p>
+    </section>
+
+    <section class="admin-grid">
+      <a class="admin-card" href="https://docs.google.com/spreadsheets/d/1U0dQbSTH1CnAFjEciKM9nBo6CkqbL3t-DGOi5K-dpYM/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">
+        <span>📋</span>
+        <h2>Ver pedidos</h2>
+        <p>Abrir la planilla de Google Sheets con los pedidos recibidos.</p>
+      </a>
+
+      <a class="admin-card" href="https://wa.me/5493415907913" target="_blank" rel="noopener noreferrer">
+        <span>💬</span>
+        <h2>Abrir WhatsApp</h2>
+        <p>Responder consultas y confirmar disponibilidad de productos.</p>
+      </a>
+
+      <a class="admin-card" href="https://www.instagram.com/fluxstore__/" target="_blank" rel="noopener noreferrer">
+        <span>📸</span>
+        <h2>Abrir Instagram</h2>
+        <p>Ir al perfil de Fluxstore para historias, reels y mensajes.</p>
+      </a>
+
+      <a class="admin-card" href="index.html" target="_blank" rel="noopener noreferrer">
+        <span>🌐</span>
+        <h2>Ver tienda</h2>
+        <p>Abrir la web pública para revisar cómo la ven los clientes.</p>
+      </a>
+    </section>
+
+    <section class="admin-section">
+      <p class="eyebrow">Mensaje rápido</p>
+      <h2>Promo para copiar</h2>
+      <p class="promo-copy" id="promoText">
+        Hola! Tenemos vapes disponibles en Fluxstore 🔥 Consultanos por sabores, precios y envíos en Rosario. Pedidos por WhatsApp 📲
+      </p>
+      <button class="btn primary" id="copyPromo">Copiar mensaje</button>
+    </section>
+
+    <section class="admin-section">
+      <p class="eyebrow">Estados sugeridos</p>
+      <h2>Organización de pedidos</h2>
+      <div class="status-list">
+        <span>Nuevo</span>
+        <span>Confirmado</span>
+        <span>Preparando</span>
+        <span>En camino</span>
+        <span>Entregado</span>
+        <span>Cancelado</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const copyBtn = document.querySelector("#copyPromo");
+    const promoText = document.querySelector("#promoText");
+
+    copyBtn.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(promoText.textContent.trim());
+      copyBtn.textContent = "Mensaje copiado";
+      setTimeout(() => {
+        copyBtn.textContent = "Copiar mensaje";
+      }, 1800);
+    });
+  </script>
+</body>
+</html>

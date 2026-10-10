@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="Catálogo de Fluxstore Rosario. Consultá modelos y disponibilidad de sabores y prepará tu pedido con claridad.">
+  <title>Fluxstore · Catálogo y pedidos</title>
+  <link rel="icon" href="assets/fluxstore-logo-circle.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="catalog-data.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#catalogo">Saltar al catálogo</a>
+  <div class="top-note">ROSARIO Y ALREDEDORES <span aria-hidden="true">·</span> Precios en pesos argentinos</div>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="Fluxstore, ir al inicio">
+        <img src="assets/fluxstore-logo-circle.webp" alt="" width="40" height="40">
+        <span>flux<span class="brand-accent">store</span><small>ROSARIO</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#catalogo" aria-current="page">Catálogo</a>
+        <a href="#como-comprar">Cómo comprar</a>
+        <a href="#resenas">Opiniones</a>
+      </nav>
+      <a class="header-order" href="#pedido" aria-label="Ver tu pedido"><span aria-hidden="true">▤</span> Mi pedido <strong id="headerCount">0</strong></a>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span> CATÁLOGO ONLINE</span>
+        <h1 id="hero-title">Encontrá tu modelo.<br><span>Elegí tu sabor.</span></h1>
+        <p>Todo en un mismo lugar: buscá por marca o sabor, consultá las unidades disponibles y prepará tu pedido sin pasos innecesarios.</p>
+        <div class="hero-actions">
+          <a href="#catalogo" class="btn btn-primary">Explorar catálogo <span aria-hidden="true">↗</span></a>
+          <a href="#como-comprar" class="text-link">¿Cómo funciona? <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="hero-aside" aria-label="Proceso de compra">
+        <div class="hero-aside-top"><span class="hero-icon">✦</span><span>COMPRA SIMPLE</span></div>
+        <div class="hero-mini-step"><span>01</span><div><strong>Encontrá lo que buscás</strong><small>Buscador y filtros claros.</small></div></div>
+        <div class="hero-mini-step"><span>02</span><div><strong>Seleccioná tus sabores</strong><small>Elegí desde el mismo catálogo.</small></div></div>
+        <div class="hero-mini-step"><span>03</span><div><strong>Revisá y confirmá</strong><small>Sin ventanas emergentes.</small></div></div>
+      </div>
+    </section>
+
+    <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><span class="eyebrow">PRODUCTOS</span><h2 id="catalog-title">Nuestro catálogo<span class="heading-dot">.</span></h2><p>Filtrá, compará y sumá sabores a tu pedido.</p></div>
+          <span class="catalog-counter" id="resultsCount" aria-live="polite">Cargando productos...</span>
+        </div>
+
+        <div class="shop-layout">
+          <div class="shop-main">
+            <div class="filters-card">
+              <label class="search-control" for="productSearch">
+                <span class="search-icon" aria-hidden="true">⌕</span>
+                <input type="search" id="productSearch" placeholder="Buscar marca, modelo o sabor..." autocomplete="off">
+              </label>
+              <div class="filter-row">
+                <label class="select-wrapper"><span>Marca</span><select id="brandFilter" aria-label="Filtrar por marca"><option value="all">Todas las marcas</option></select></label>
+                <label class="select-wrapper"><span>Capacidad</span><select id="puffFilter" aria-label="Filtrar por capacidad"><option value="all">Todas</option></select></label>
+                <label class="select-wrapper"><span>Ordenar</span><select id="sortFilter" aria-label="Ordenar productos"><option value="default">Destacados</option><option value="price-asc">Menor precio</option><option value="price-desc">Mayor precio</option><option value="name">Nombre A–Z</option></select></label>
+                <label class="available-toggle"><input id="availableOnly" type="checkbox"> <span>Solo disponibles</span></label>
+              </div>
+              <div class="filter-bottom"><span id="filterSummary">Mostrando todos los modelos</span><button id="resetFilters" class="button-link" type="button" hidden>Limpiar filtros</button></div>
+            </div>
+
+            <div class="status-bar" id="stockStatus" role="status" aria-live="polite">Consultando disponibilidad actual...</div>
+            <div class="product-grid" id="productGrid" aria-live="polite"></div>
+            <div class="catalog-hint">¿No encontrás un sabor? <a id="catalogHelpWhatsapp" href="#" target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp ↗</a></div>
+          </div>
+
+          <aside class="order-card" id="pedido" aria-labelledby="order-title">
+            <div class="order-header"><div><span class="eyebrow">TU SELECCIÓN</span><h2 id="order-title">Mi pedido <span id="cartCountBadge">0</span></h2></div><button class="button-link" id="clearCart" type="button" hidden>Vaciar</button></div>
+            <div class="cart-content" id="cartItems"><div class="empty-cart"><span>◇</span><strong>Tu pedido está vacío</strong><p>Elegí un producto y sumá el sabor que más te guste.</p><a href="#catalogo">Ver productos →</a></div></div>
+            <div class="order-footer"><div class="total-line"><span>Subtotal</span><strong id="cartTotal">$ 0</strong></div><p class="shipping-caption">El costo de envío se calcula al ingresar tu ciudad.</p><button class="btn btn-primary full" id="goToCheckout" type="button" disabled>Continuar con mi pedido <span aria-hidden="true">→</span></button><small>Podés modificar las cantidades antes de confirmar.</small></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="checkout-section wrap" id="checkout" hidden aria-labelledby="checkout-title">
+      <div class="section-heading"><div><span class="eyebrow">ÚLTIMO PASO</span><h2 id="checkout-title">Finalizá tu pedido<span class="heading-dot">.</span></h2><p>Completá los datos de entrega y revisá el total.</p></div><button class="button-link back-link" id="backToCart" type="button">← Volver al pedido</button></div>
+      <div id="checkoutFormArea" class="checkout-layout">
+        <form id="checkoutForm" class="checkout-form">
+          <h3>Datos de contacto</h3>
+          <div class="field-grid">
+            <label class="field"><span>Nombre y apellido <b>*</b></span><input id="checkoutName" name="nombre" autocomplete="name" type="text" minlength="2" required placeholder="Tu nombre"></label>
+            <label class="field"><span>WhatsApp <b>*</b></span><input id="checkoutWhatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" type="tel" minlength="8" required placeholder="341 123 4567"></label>
+            <label class="field full-field"><span>Email <small>(opcional)</small></span><input id="checkoutEmail" name="email" autocomplete="email" type="email" placeholder="tu@email.com"></label>
+          </div>
+          <h3>Entrega</h3>
+          <div class="field-grid">
+            <label class="field"><span>Ciudad <b>*</b></span><select id="checkoutCity" required><option value="">Seleccionar ciudad</option><option value="Rosario">Rosario</option><option value="Villa Gobernador Gálvez">Villa Gobernador Gálvez</option><option value="Funes">Funes</option><option value="Pérez">Pérez</option></select></label>
+            <label class="field"><span>Dirección <b>*</b></span><input id="checkoutAddress" autocomplete="street-address" type="text" minlength="3" required placeholder="Calle y número"></label>
+            <label class="field"><span>Forma de pago <b>*</b></span><select id="checkoutPayment" required><option value="">Seleccionar</option><option value="Transferencia">Transferencia</option><option value="Efectivo">Efectivo</option></select></label>
+            <label class="field"><span>Horario preferido <small>(opcional)</small></span><input id="checkoutTime" type="text" placeholder="Ej. después de las 18"></label>
+            <label class="field full-field"><span>Aclaraciones <small>(opcional)</small></span><textarea id="checkoutNotes" rows="2" placeholder="Piso, timbre u otra indicación"></textarea></label>
+          </div>
+          <label class="age-check"><input id="adultConfirmation" type="checkbox" required> Confirmo que soy mayor de 18 años.</label>
+          <div id="checkoutFeedback" class="form-feedback" role="alert" hidden></div>
+          <button id="submitOrder" class="btn btn-primary full" type="submit">Preparar confirmación <span aria-hidden="true">→</span></button>
+          <p class="form-disclaimer">No se cobra desde esta página. Se solicita confirmación final por WhatsApp.</p>
+        </form>
+        <div class="checkout-summary"><h3>Resumen</h3><div id="checkoutItems"></div><div class="summary-row"><span>Productos</span><strong id="checkoutProductsTotal">$ 0</strong></div><div class="summary-row"><span>Envío <small>(estimado)</small></span><strong id="checkoutShippingTotal">Elegí ciudad</strong></div><div class="summary-row summary-total"><span>Total estimado</span><strong id="checkoutResumeTotal">$ 0</strong></div><p>Disponibilidad y entrega sujetas a confirmación.</p></div>
+      </div>
+      <div class="confirmation" id="confirmation" hidden>
+        <div class="confirmation-icon" aria-hidden="true">✓</div>
+        <span class="eyebrow">SOLICITUD PREPARADA</span>
+        <h3>Un paso más y listo.</h3>
+        <p id="confirmationMessage">Enviá tu pedido por WhatsApp para coordinar la confirmación.</p>
+        <div class="confirmation-details"><div><span>Referencia</span><strong id="checkoutOrderId">—</strong></div><div><span>Total estimado</span><strong id="checkoutPaymentTotal">—</strong></div></div>
+        <div class="bank-box" id="bankBox" hidden><h4>Datos de transferencia</h4><div><span>Alias</span><strong id="checkoutAlias"></strong></div><div><span>Titular</span><strong id="checkoutHolder"></strong></div><div><span>CVU / CBU</span><strong id="checkoutCvu"></strong></div><button id="copyCheckoutAlias" type="button" class="button-link">Copiar alias</button><small>No transfieras hasta confirmar disponibilidad y total con el comercio.</small></div>
+        <a class="btn btn-whatsapp" id="checkoutWhatsappReceipt" href="#" target="_blank" rel="noopener noreferrer">Enviar pedido por WhatsApp ↗</a>
+        <button id="startNewOrder" type="button" class="button-link">Seguir explorando el catálogo</button>
+      </div>
+    </section>
+
+    <section class="how-section" id="como-comprar"><div class="wrap"><div class="section-heading compact"><div><span class="eyebrow">ASÍ DE SIMPLE</span><h2>Cómo comprar<span class="heading-dot">.</span></h2></div></div><div class="how-grid"><article><span>01</span><h3>Buscá</h3><p>Usá el buscador para encontrar una marca, modelo o sabor.</p></article><article><span>02</span><h3>Elegí</h3><p>Desplegá los sabores, consultá el stock y sumá los que quieras.</p></article><article><span>03</span><h3>Confirmá</h3><p>Revisá el pedido, ingresá tu ciudad y coordiná por WhatsApp.</p></article></div></div></section>
+
+    <section class="reviews-section wrap" id="resenas" aria-labelledby="reviews-title"><div class="section-heading compact"><div><span class="eyebrow">OPINIONES</span><h2 id="reviews-title">Experiencias reales<span class="heading-dot">.</span></h2><p>Las opiniones de quienes ya nos eligieron.</p></div><div class="review-rating"><strong id="averageRating">—</strong><span class="review-stars" id="averageStars"></span><small id="reviewCount">Cargando...</small></div></div><div id="reviewsGrid" class="reviews-grid"><p>Cargando reseñas...</p></div>
+      <details class="review-editor" id="reviewEditor"><summary>¿Querés dejar tu opinión? <span>Escribir reseña +</span></summary><form id="reviewForm" class="review-form"><label class="field"><span>Tu nombre</span><input id="reviewName" type="text" maxlength="80" placeholder="Tu nombre"></label><label class="field"><span>Calificación</span><select id="reviewRating"><option value="5">★★★★★ — Excelente</option><option value="4">★★★★☆ — Muy buena</option><option value="3">★★★☆☆ — Buena</option><option value="2">★★☆☆☆ — Regular</option><option value="1">★☆☆☆☆ — Mala</option></select></label><label class="field"><span>Comentario <small>(opcional)</small></span><textarea id="reviewComment" maxlength="1000" rows="3" placeholder="Contanos tu experiencia"></textarea></label><div id="reviewFeedback" class="form-feedback" role="status" hidden></div><button class="btn btn-primary" type="submit">Enviar reseña</button></form></details>
+    </section>
+    <section class="contact-strip" id="contacto"><div class="wrap contact-inner"><div><span class="eyebrow">¿NECESITÁS AYUDA?</span><h2>Estamos para ayudarte.</h2><p>Consultanos sobre disponibilidad, entregas o cualquier duda.</p></div><a id="contactWhatsapp" class="btn btn-outline" href="#" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp ↗</a></div></section>
+  </main>
+
+  <footer class="footer"><div class="wrap footer-inner"><div class="footer-brand"><strong>flux<span>store</span></strong><p>Rosario, Santa Fe · Argentina</p></div><div class="footer-links"><a href="#catalogo">Catálogo</a><a href="#como-comprar">Cómo comprar</a><a href="#resenas">Reseñas</a><a href="https://www.instagram.com/fluxstore__/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div><p class="footer-note">Venta exclusiva a personas adultas. Consultar normativa local vigente.</p></div></footer>
+
+  <a id="mobileCartBar" href="#pedido" class="mobile-cart-bar" hidden><span><strong id="mobileCartCount">0 artículos</strong><small id="mobileCartTotal">$ 0</small></span><strong>Ver pedido →</strong></a>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
